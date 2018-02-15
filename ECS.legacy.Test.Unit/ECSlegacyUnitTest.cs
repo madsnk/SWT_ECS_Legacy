@@ -11,12 +11,23 @@ namespace ECS.legacy.Test.Unit
     [TestFixture]
     public class ECSlegacyUnitTest
     {
-        private ECS _uut;
+        private Legacy.ECS _uut;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new ECS();
+
+            _uut = new Legacy.ECS(17, new FakeTempSensor(), new FakeHeater());
         }
+
+        public void tempOverThresh_hearterOn(int a, int b, int result)
+        {
+
+        }
+        public void tempUnderThresh_hearterOn(int a, int b, int result)
+        {
+
+        }
+
     }
 }
