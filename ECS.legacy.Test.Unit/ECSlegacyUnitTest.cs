@@ -12,21 +12,29 @@ namespace ECS.legacy.Test.Unit
     public class ECSlegacyUnitTest
     {
         private Legacy.ECS _uut;
+        private FakeHeater _utFakeHeat;
 
         [SetUp]
         public void Setup()
         {
-
-            _uut = new Legacy.ECS(17, new FakeTempSensor(), new FakeHeater());
+            _utFakeHeat = new FakeHeater();
+            _uut = new Legacy.ECS(17, new FakeTempSensor(), _utFakeHeat);
         }
 
-        public void tempOverThresh_hearterOn(int a, int b, int result)
+        [Test]
+        public void Regulate_threshUnderTemp_HeaterOff()
         {
-
+            _uut.SetThreshold(20);
+            _uut.Regulate();
+            Assert.That(_utFakeHeat.HeaterIsOn, Is.False);
         }
-        public void tempUnderThresh_hearterOn(int a, int b, int result)
-        {
 
+        [Test]
+        public void Regulate_threshOverTemp_HeaterOn()
+        {
+            _uut.SetThreshold(30);
+            _uut.Regulate();
+            Assert.That(_utFakeHeat.HeaterIsOn, Is.True);
         }
 
     }
